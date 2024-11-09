@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         flashcardAdapter = new FlashcardAdapter(flashcardList, new FlashcardAdapter.OnFlashcardClickListener() {
             @Override
             public void onEditClick(int position) {
-                // Edit the flashcard (e.g., open an EditFlashcardActivity)
-                Toast.makeText(MainActivity.this, "Edit Flashcard: " + position, Toast.LENGTH_SHORT).show();
+                // Edit the flashcard
+                showEditFlashcardDialog(position);
             }
 
             @Override
@@ -77,6 +77,44 @@ public class MainActivity extends AppCompatActivity {
                         flashcardList.add(new Flashcard(question, answer));
                         flashcardAdapter.notifyItemInserted(flashcardList.size() - 1);
                         Toast.makeText(MainActivity.this, "Flashcard Added", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Please enter both question and answer", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        // Show the dialog
+        builder.create().show();
+    }
+
+    private void showEditFlashcardDialog(int position) {
+        // Get the current flashcard details
+        Flashcard flashcard = flashcardList.get(position);
+
+        // Create a dialog layout for editing the flashcard
+        View dialogView = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_add_flashcard, null);
+        EditText questionEditText = dialogView.findViewById(R.id.edit_question);
+        EditText answerEditText = dialogView.findViewById(R.id.edit_answer);
+
+        // Pre-fill the EditText fields with the current flashcard details
+        questionEditText.setText(flashcard.getQuestion());
+        answerEditText.setText(flashcard.getAnswer());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Edit Flashcard")
+                .setView(dialogView)
+                .setPositiveButton("Save", (dialog, which) -> {
+                    // Get the updated question and answer
+                    String question = questionEditText.getText().toString().trim();
+                    String answer = answerEditText.getText().toString().trim();
+
+                    // Check if the question and answer are not empty
+                    if (!question.isEmpty() && !answer.isEmpty()) {
+                        // Update the flashcard in the list
+                        flashcard.setQuestion(question);
+                        flashcard.setAnswer(answer);
+                        flashcardAdapter.notifyItemChanged(position);
+                        Toast.makeText(MainActivity.this, "Flashcard Updated", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(MainActivity.this, "Please enter both question and answer", Toast.LENGTH_SHORT).show();
                     }
