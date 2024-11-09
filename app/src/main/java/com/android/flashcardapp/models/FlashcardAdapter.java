@@ -39,20 +39,9 @@ public class FlashcardAdapter extends RecyclerView.Adapter<FlashcardAdapter.Flas
     public void onBindViewHolder(@NonNull FlashcardViewHolder holder, int position) {
         Flashcard flashcard = flashcardList.get(position);
         holder.questionTextView.setText(flashcard.getQuestion());
-
-        // Handle flashcard click (edit action)
-        holder.itemView.setOnClickListener(v -> listener.onFlashcardClick(position)); // Open edit screen
-
-        // Handle delete button click
+        holder.itemView.setOnClickListener(v -> listener.onFlashcardClick(position)); // Handle flashcard click
         holder.deleteButton.setOnClickListener(v -> listener.onDeleteClick(position));
 
-        // Handle "View Flashcard" button click
-        holder.viewFlashcardButton.setOnClickListener(v -> {
-            // Navigate to the FlashcardViewActivity and pass the current flashcard data
-            Intent intent = new Intent(v.getContext(), FlashcardViewActivity.class);
-            intent.putExtra("flashcard", flashcard);
-            v.getContext().startActivity(intent);
-        });
     }
 
     @Override

@@ -1,25 +1,22 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/flashcard_card"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:elevation="8dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="8dp">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- Container to apply flip animation -->
-    <FrameLayout
+    <!-- Card to show the flashcard question and answer -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/flashcard_card"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="400dp"
+        android:layout_margin="16dp"
+        android:elevation="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp">
 
-        <!-- ViewFlipper to manage the flipping animation -->
-        <android.widget.ViewFlipper
-            android:id="@+id/view_flipper"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- Question view -->
             <TextView
                 android:id="@+id/question_text"
                 android:layout_width="match_parent"
@@ -28,9 +25,9 @@
                 android:textSize="24sp"
                 android:text="Question?"
                 android:textColor="@android:color/black"
-                android:padding="32dp"/>
+                android:padding="32dp"
+                android:visibility="visible" />
 
-            <!-- Answer view -->
             <TextView
                 android:id="@+id/answer_text"
                 android:layout_width="match_parent"
@@ -39,10 +36,21 @@
                 android:textSize="24sp"
                 android:text="Answer"
                 android:textColor="@android:color/black"
-                android:padding="32dp"
-                android:visibility="gone"/>
-        </android.widget.ViewFlipper>
+                android:visibility="gone"
+                android:padding="32dp" />
+        </RelativeLayout>
 
-    </FrameLayout>
+    </androidx.cardview.widget.CardView>
 
-</androidx.cardview.widget.CardView>
+    <!-- Button to flip back to question -->
+    <Button
+        android:id="@+id/flip_to_question_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Flip to Question"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

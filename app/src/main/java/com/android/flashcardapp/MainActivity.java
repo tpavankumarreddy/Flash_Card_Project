@@ -66,13 +66,20 @@ public class MainActivity extends AppCompatActivity {
         // Show the dialog when the FAB is clicked
         addButton.setOnClickListener(v -> showAddFlashcardDialog());
 
-        // Handle "View All Flashcards" button click
+        // Inside MainActivity.java
+
         viewAllButton.setOnClickListener(v -> {
-            // Pass the entire list of flashcards to the FlashcardViewActivity
-            Intent intent = new Intent(MainActivity.this, FlashcardViewActivity.class);
-            intent.putParcelableArrayListExtra("flashcards", new ArrayList<>(flashcardList));
-            startActivity(intent);
+            // Get the first flashcard from the list (or you can choose another way to select the flashcard)
+            if (!flashcardList.isEmpty()) {
+                Flashcard flashcard = flashcardList.get(0);  // You can modify this to get any flashcard
+
+                Intent intent = new Intent(MainActivity.this, FlashcardViewActivity.class);
+                // Pass the flashcard to the next activity
+                intent.putExtra("flashcard", flashcard);
+                startActivity(intent);
+            }
         });
+
     }
 
     private void showAddFlashcardDialog() {
