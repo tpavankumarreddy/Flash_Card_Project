@@ -52,12 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFlashcardClick(int position) {
-                // Handle flashcard click: Navigate to FlashcardViewActivity
-                Flashcard flashcard = flashcardList.get(position);
-                Intent intent = new Intent(MainActivity.this, FlashcardViewActivity.class);
-                intent.putExtra("flashcard", flashcard); // Pass the selected flashcard
-                startActivity(intent);
+                // Handle flashcard click: Show an edit dialog
+                showEditFlashcardDialog(position);
             }
+
         });
 
 
@@ -65,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(flashcardAdapter);
 
         // Show the dialog when the FAB is clicked
+
         addButton.setOnClickListener(v -> showAddFlashcardDialog());
     }
 
