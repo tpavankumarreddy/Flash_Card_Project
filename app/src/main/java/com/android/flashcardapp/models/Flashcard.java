@@ -1,6 +1,9 @@
 package com.android.flashcardapp.models;
 
-public class Flashcard {
+import java.io.Serializable;
+
+public class Flashcard implements Serializable {
+
     private String question;
     private String answer;
 

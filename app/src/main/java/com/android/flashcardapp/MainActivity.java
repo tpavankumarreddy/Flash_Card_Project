@@ -1,5 +1,6 @@
 package com.android.flashcardapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,18 +38,28 @@ public class MainActivity extends AppCompatActivity {
         flashcardAdapter = new FlashcardAdapter(flashcardList, new FlashcardAdapter.OnFlashcardClickListener() {
             @Override
             public void onEditClick(int position) {
-                // Edit the flashcard
+                // Handle edit click: Show an edit dialog or activity
                 showEditFlashcardDialog(position);
             }
 
             @Override
             public void onDeleteClick(int position) {
-                // Delete the flashcard
+                // Handle delete click: Remove from the list and notify adapter
                 flashcardList.remove(position);
                 flashcardAdapter.notifyItemRemoved(position);
                 Toast.makeText(MainActivity.this, "Flashcard Deleted", Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public void onFlashcardClick(int position) {
+                // Handle flashcard click: Navigate to FlashcardViewActivity
+                Flashcard flashcard = flashcardList.get(position);
+                Intent intent = new Intent(MainActivity.this, FlashcardViewActivity.class);
+                intent.putExtra("flashcard", flashcard); // Pass the selected flashcard
+                startActivity(intent);
+            }
         });
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(flashcardAdapter);

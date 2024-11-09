@@ -1,5 +1,6 @@
 package com.android.flashcardapp.models;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class FlashcardAdapter extends RecyclerView.Adapter<FlashcardAdapter.Flas
     public interface OnFlashcardClickListener {
         void onEditClick(int position);
         void onDeleteClick(int position);
+        void onFlashcardClick(int position); // New listener for flashcard view
     }
 
     public FlashcardAdapter(List<Flashcard> flashcardList, OnFlashcardClickListener listener) {
@@ -37,7 +39,7 @@ public class FlashcardAdapter extends RecyclerView.Adapter<FlashcardAdapter.Flas
     public void onBindViewHolder(@NonNull FlashcardViewHolder holder, int position) {
         Flashcard flashcard = flashcardList.get(position);
         holder.questionTextView.setText(flashcard.getQuestion());
-        holder.itemView.setOnClickListener(v -> listener.onEditClick(position));
+        holder.itemView.setOnClickListener(v -> listener.onFlashcardClick(position)); // Handle flashcard click
         holder.deleteButton.setOnClickListener(v -> listener.onDeleteClick(position));
     }
 
