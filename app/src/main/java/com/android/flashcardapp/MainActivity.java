@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private FlashcardAdapter flashcardAdapter;
     private List<Flashcard> flashcardList;
     private FloatingActionButton addButton;
+    private Button viewAllButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         addButton = findViewById(R.id.add_button);
+        viewAllButton = findViewById(R.id.view_flashcard_button);  // Add a button to view all flashcards
         flashcardList = new ArrayList<>();
 
         flashcardAdapter = new FlashcardAdapter(flashcardList, new FlashcardAdapter.OnFlashcardClickListener() {
@@ -55,16 +58,21 @@ public class MainActivity extends AppCompatActivity {
                 // Handle flashcard click: Show an edit dialog
                 showEditFlashcardDialog(position);
             }
-
         });
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(flashcardAdapter);
 
         // Show the dialog when the FAB is clicked
-
         addButton.setOnClickListener(v -> showAddFlashcardDialog());
+
+        // Handle "View All Flashcards" button click
+        viewAllButton.setOnClickListener(v -> {
+            // Pass the entire list of flashcards to the FlashcardViewActivity
+            Intent intent = new Intent(MainActivity.this, FlashcardViewActivity.class);
+            intent.putParcelableArrayListExtra("flashcards", new ArrayList<>(flashcardList));
+            startActivity(intent);
+        });
     }
 
     private void showAddFlashcardDialog() {
