@@ -69,16 +69,14 @@ public class MainActivity extends AppCompatActivity {
         // Inside MainActivity.java
 
         viewAllButton.setOnClickListener(v -> {
-            // Get the first flashcard from the list (or you can choose another way to select the flashcard)
+            // Pass the entire flashcard list to the next activity
             if (!flashcardList.isEmpty()) {
-                Flashcard flashcard = flashcardList.get(0);  // You can modify this to get any flashcard
-
                 Intent intent = new Intent(MainActivity.this, FlashcardViewActivity.class);
-                // Pass the flashcard to the next activity
-                intent.putExtra("flashcard", flashcard);
+                intent.putExtra("flashcardList", new ArrayList<>(flashcardList)); // Pass a copy of the list
                 startActivity(intent);
             }
         });
+
 
     }
 

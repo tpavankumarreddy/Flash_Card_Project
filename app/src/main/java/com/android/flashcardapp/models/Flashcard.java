@@ -3,10 +3,10 @@ package com.android.flashcardapp.models;
 import java.io.Serializable;
 
 public class Flashcard implements Serializable {
-
     private String question;
     private String answer;
 
+    // Constructor, getters, and setters
     public Flashcard(String question, String answer) {
         this.question = question;
         this.answer = answer;

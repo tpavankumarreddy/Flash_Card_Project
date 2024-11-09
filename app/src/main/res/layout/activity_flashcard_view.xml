@@ -1,56 +1,83 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".FlashcardViewActivity">
 
-    <!-- Card to show the flashcard question and answer -->
+    <!-- Flashcard Card View -->
     <androidx.cardview.widget.CardView
         android:id="@+id/flashcard_card"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_margin="16dp"
-        android:elevation="8dp"
-        app:cardCornerRadius="16dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="8dp"
         app:cardElevation="8dp">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center">
 
+            <!-- Question Text -->
             <TextView
                 android:id="@+id/question_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="24sp"
-                android:text="Question?"
-                android:textColor="@android:color/black"
-                android:padding="32dp"
-                android:visibility="visible" />
+                android:textSize="18sp"
+                android:text="Question"
+                android:padding="16dp"/>
 
+            <!-- Answer Text (Initially hidden) -->
             <TextView
                 android:id="@+id/answer_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:text="Answer"
-                android:textColor="@android:color/black"
                 android:visibility="gone"
-                android:padding="32dp" />
-        </RelativeLayout>
+                android:padding="16dp"/>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <!-- Button to flip back to question -->
+    <!-- Button to Flip the Flashcard -->
     <Button
         android:id="@+id/flip_to_question_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Flip to Question"
         android:visibility="gone"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"/>
+        android:layout_gravity="center" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Buttons to Shuffle and Go to Next Flashcard -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <!-- Next Button -->
+        <Button
+            android:id="@+id/next_flashcard_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next" />
+
+        <!-- Shuffle Button -->
+        <Button
+            android:id="@+id/shuffle_flashcards_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shuffle"
+            android:layout_marginLeft="16dp" />
+    </LinearLayout>
+</LinearLayout>
