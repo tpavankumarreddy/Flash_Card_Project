@@ -4,11 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
 import com.android.flashcardapp.models.Flashcard;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -41,8 +40,12 @@ public class FlashcardViewActivity extends AppCompatActivity {
         // Get the flashcards list passed from the previous activity
         flashcards = (List<Flashcard>) getIntent().getSerializableExtra("flashcards");
 
-        // Display the first flashcard
-        displayFlashcard(flashcards.get(currentFlashcardIndex));
+        if (flashcards != null && !flashcards.isEmpty()) {
+            // Display the first flashcard
+            displayFlashcard(flashcards.get(currentFlashcardIndex));
+        } else {
+            Toast.makeText(this, "No flashcards available", Toast.LENGTH_SHORT).show();
+        }
 
         // Set OnClickListener on CardView to flip the card
         flashcardCardView.setOnClickListener(v -> {
